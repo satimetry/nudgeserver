@@ -65,6 +65,8 @@ public class FactService {
 		@QueryParam("groupid") Integer groupid,
 		@QueryParam("factname") String factname) {
 
+		LOGGER.info("==>fact/del params=" + programid + ":"+ groupid + ":" + factname );
+		
 		Response.ResponseBuilder builder = null;
 		Fact fact = new Fact();
 		
@@ -73,7 +75,7 @@ public class FactService {
 			Iterator it = facts.iterator();		
 			while ( it.hasNext() ) {
 				fact = (Fact) it.next();
-				System.out.println("id---->" + fact.getId());
+				LOGGER.info("==>fact/del id=" + fact.getId());
 				crud.delete(fact.getId());
 			}
 			//Create an "ok" response
@@ -96,10 +98,11 @@ public class FactService {
 	public Response deleteFact(
 		@FormParam("id") Integer id) {
 
+		LOGGER.info("==>fact/del params=" + id);
+
 		Response.ResponseBuilder builder = null;
 
 		try {
-			System.out.println("id---->" + id);
 			crud.delete(id);
 
 			//Create an "ok" response
@@ -166,10 +169,11 @@ public class FactService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createFactByJSON(Fact fact) {
-		
-		Response.ResponseBuilder builder = null;
 
-		System.out.println("-->POSTbyJSON Fact " + fact.getProgramid());
+		LOGGER.info("==>fact/post json=" + fact );
+		LOGGER.info("==>fact " + fact.getProgramid() + ":" + fact.getFactjson());
+
+		Response.ResponseBuilder builder = null;
 		
 		try {
 			// Validates fact using bean validation
@@ -199,6 +203,8 @@ public class FactService {
 		@FormParam("groupid") Integer groupid,
 		@FormParam("factname") String factname,
 		@FormParam("factjson") String factjson) {
+
+		LOGGER.info("==>fact/post params=" + programid + ":"+ groupid + ":" + factname + ":" + factjson);
 		
 		Fact fact = new Fact();
 		fact.setGroupid(groupid);
@@ -207,7 +213,7 @@ public class FactService {
 		fact.setFacttype(new Integer(1));
 		fact.setFactjson(factjson);
 
-		System.out.println("-->POST Fact " + fact.getProgramid());
+		LOGGER.info("==>fact" + fact.getProgramid() + ":"+ fact.getGroupid() + ":" + fact.getFactname() + ":" + fact.getFactjson());
 
 		Response.ResponseBuilder builder = null;
 
@@ -241,6 +247,5 @@ public class FactService {
 		}
 
 	}
-
 
 }

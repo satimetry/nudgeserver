@@ -65,6 +65,8 @@ public class MsgService {
 		@QueryParam("programid") Integer programid,
 		@QueryParam("userid") Integer userid) {
 
+		LOGGER.info("==>msg/del params=" + programid + ":"+ userid);
+		
 		Response.ResponseBuilder builder = null;
 		Msg msg = new Msg();
 		
@@ -121,6 +123,8 @@ public class MsgService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deletemsg(
 		@FormParam("msgid") Integer msgid) {
+
+		LOGGER.info("==>msg/del params=" + msgid);
 
 		Response.ResponseBuilder builder = null;
 
@@ -188,8 +192,9 @@ public class MsgService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createmsgJSON(Msg msg) {
-		
-		LOGGER.info("-->msg " + msg.getProgramid() + ":" + msg.getUserid() + ":"+ msg.getRulename() + ":" + msg.getRuledate() + ":" + msg.getMsgtxt());
+
+		LOGGER.info("==>fact/post json=" + msg );
+		LOGGER.info("==>msg " + msg.getProgramid() + ":" + msg.getUserid() + ":"+ msg.getRulename() + ":" + msg.getRuledate() + ":" + msg.getMsgtxt());
 
 		Response.ResponseBuilder builder = null;
 

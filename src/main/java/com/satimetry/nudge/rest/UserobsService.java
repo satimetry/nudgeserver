@@ -73,6 +73,8 @@ public class UserobsService {
 		@QueryParam("userid") Integer userid,
 		@QueryParam("obsname") String obsname) {
 
+		LOGGER.info("==>userobs/del params=" + programid + ":"+ userid + ":" + obsname);
+		
 		Response.ResponseBuilder builder = null;
 		Userobs Userobs = new Userobs();
 		
@@ -104,6 +106,8 @@ public class UserobsService {
 	public Response deleteUserobs(
 		@FormParam("userobsid") Integer userobsid) {
 
+		LOGGER.info("==>userobs/del params=" + userobsid);
+		
 		Response.ResponseBuilder builder = null;
 
 		try {
@@ -161,9 +165,9 @@ public class UserobsService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createUserobsJSON(Userobs userobs) {
-		
-		LOGGER.info("-->POSTbyJSON Userobs " + userobs);		
-		LOGGER.info("-->Userobs JSON " + userobs.getProgramid() + ":" + userobs.getUserid() + ":"+ userobs.getObsname() + ":" + userobs.getObsvalue() + ":" + userobs.getObsdate());
+
+		LOGGER.info("==>userobs/post json=" + userobs);		
+		LOGGER.info("==>userobs " + userobs.getProgramid() + ":" + userobs.getUserid() + ":"+ userobs.getObsname() + ":" + userobs.getObsvalue() + ":" + userobs.getObsdate());
 
 		Response.ResponseBuilder builder = null;
 	    
@@ -206,9 +210,8 @@ public class UserobsService {
 			date = (java.util.Date) sdf.parse(obsdatestr);  
 		} catch (Exception e) {}
 		Timestamp obsdate = new Timestamp(date.getTime());
-		
-		System.out.println("-->POSTbyFORM Userobs " + programid);
-		LOGGER.info("-->Userobs FORM " + programid + ":" + userid + ":"+ obsname + ":" + obsvalue + ":" + obsdate);
+
+		LOGGER.info("==>userobs/post params=" + programid + ":"+ userid + ":" + obsname + ":" + obsdate + ":" + obsvalue);
 		
 		Userobs Userobs = new Userobs();
 		Userobs.setUserid(userid);
