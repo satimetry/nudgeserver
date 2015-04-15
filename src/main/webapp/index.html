@@ -1,0 +1,288 @@
+<!-- JBoss, Home of Professional Open Source Copyright 2009, Red Hat Middleware 
+    LLC, and individual contributors as indicated by the @author tags. See the 
+    copyright.txt in the distribution for a full listing of individual contributors. 
+    This copyrighted material is made available to anyone wishing to use, modify, 
+    copy, or redistribute it subject to the terms and conditions of the GNU Lesser 
+    General Public License, v. 2.1. This program is distributed in the hope that 
+    it will be useful, but WITHOUT A WARRANTY; without even the implied warranty 
+    of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser 
+    General Public License for more details. You should have received a copy 
+    of the GNU Lesser General Public License, v.2.1 along with this distribution; 
+    if not, write to the Free Software Foundation, Inc., 51 Franklin Street, 
+    Fifth Floor, Boston, MA 02110-1301, USA. (C) 2009 
+    
+obs += "{\"id\":stefano,\"obsdate\":2014-02-22,\"obsvalue\":2}";
+obs += "{id:stefano,obsdate:2014-02-21,obsvalue:-2},";
+obs += "{id:stefano,obsdate:2014-02-20,obsvalue:1},";
+obs += "{id:stefano,obsdate:2014-02-19,obsvalue:-2},";
+obs += "{id:stefano,obsdate:2014-02-18,obsvalue:2},";
+obs += "{id:stefano,obsdate:2014-02-18,obsvalue:-1}";              
+obsjson = eval( "(" + obs + ")" );
+obsjson = JSON.stringify(obsjson);
+   
+    
+    -->
+
+<!doctype html>
+<!--[if IE 7 ]>       <html class="no-js ie ie7 lte7 lte8 lte9" lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>       <html class="no-js ie ie8 lte8 lte9" lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>       <html class="no-js ie ie9 lte9>" lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en-US">
+   <!--<![endif]-->
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>helloworld-rs</title>
+</head>
+<body>
+
+	<form name="createuserobs" id="createuserobs" action="rest/userobs" method="post">
+   	  <fieldset>
+      	<legend>Userobs JSON Post Example</legend>
+      	programid:
+ 		<input type="text" name="programid" id="programid" required autofocus value=1 />
+ 		</br>
+ 		userid:
+        <input type="text" name="userid" id="userid" required value=1 />
+        </br>
+        Obsname:
+        <input type="text" name="obsname" id="obsname" required value="activity" />
+        </br>
+        Obsvalue:
+        <input type="text" name="obsvalue" id="obsvalue" required value="9999" />
+        </br>
+        Obsdesc:
+        <input type="text" name="obsdesc" id="obsdesc" required value="REST created userobs" />
+        </br>
+        Obsdate:
+        <input type="text" name="obsdate" id="obsdate" required value="2014-03-23 10:30:23" />
+        </br>
+        Obstype:
+        <input type="text" name="obstype" id="obstype" required value="userobs" />
+        </br>
+
+		<input type="submit" id="create" value="Create"/>
+	  </fieldset>
+   </form>
+
+   <form name="createuserobs" id="createuserobs" action="rest/userobs" method="post">
+   	  <fieldset>
+      	<legend>Userobs Post Example</legend>
+      	programid:
+ 		<input type="text" name="programid" id="programid" required autofocus value=1 />
+ 		</br>
+ 		userid:
+        <input type="text" name="userid" id="userid" required value=1 />
+        </br>
+        Obsname:
+        <input type="text" name="obsname" id="obsname" required value="activity" />
+        </br>
+        Obsvalue:
+        <input type="text" name="obsvalue" id="obsvalue" required value="9999" />
+        </br>
+        Obsdesc:
+        <input type="text" name="obsdesc" id="obsdesc" required value="REST created userobs" />
+        </br>
+        Obsdate:
+        <input type="text" name="obsdate" id="obsdate" required value="2014-03-23 10:30:23" />
+        </br>
+        Obstype:
+        <input type="text" name="obstype" id="obstype" required value="userobs" />
+        </br>
+
+		<input type="submit" id="create" value="Create"/>
+	  </fieldset>
+   </form>
+   
+	<form name="getfact" id="getfact" action="rest/fact/user" method="get">
+   	  <fieldset>
+      	<legend>User Fact Get Example</legend>
+      	Program ID:
+ 		<input type="text" name="programid" id="programid" required autofocus value=1 />
+ 		</br>
+ 		Group ID:
+        <input type="text" name="groupid" id="groupid" required value=1 />
+        </br>
+		<input type="submit" id="get" value="Get"/>
+	  </fieldset>
+   </form>
+	</br>
+	
+   Do Nudge: <a href=rest/nudge?programid=1&groupid=1&rulename=fitbit > doNudge </a>
+	</br>
+	
+	<form name="getfact" id="getfact" action="rest/fact/system" method="get">
+   	  <fieldset>
+      	<legend>System Fact Get Example</legend>
+      	Program ID:
+ 		<input type="text" name="programid" id="programid" required autofocus value=1 />
+ 		</br>
+ 		Group ID:
+        <input type="text" name="groupid" id="groupid" required value=1 />
+        </br>
+		<input type="submit" id="get" value="Get"/>
+	  </fieldset>
+   </form>   
+
+		</br>   
+    	<a href=rest/rule/0 >Rule 0</a>
+    	<a href=rest/rule/1 >Rule 1</a>
+    	<a href=rest/rule/2 >Rule 2</a>
+    	<a href=rest/rule/3 >Rule 3</a>
+		</br>
+    	<a href=rest/fact/0 >Fact 0</a>
+    	<a href=rest/fact/1 >Fact 1</a>
+    	<a href=rest/fact/2 >Fact 2</a>
+    	<a href=rest/fact/3 >Fact 3</a>
+
+	</br>
+	<form name="createrule" id="createrule" action="rest/rule" method="post">
+   	<fieldset>
+      	<legend>Rule File Post Example</legend>
+      	Program ID:
+ 			<input type="text" name="programid" id="programid" required autofocus value=1 />
+ 			</br>
+ 		Group ID:
+         <input type="text" name="groupid" id="groupid" required value=1 />
+         </br>
+        Rule Name:
+         <input type="text" name="rulename" id="rulename" required value="fitbit" />
+         </br>
+         Rule Text:
+         <textarea cols=60 rows=20 name="ruletxt" id="ruletxt" required >
+import java.util.HashMap;
+import org.json.JSONObject;
+import java.util.Date; 
+import java.text.SimpleDateFormat; 
+import com.satimetry.nudge.Output;
+
+global java.util.HashMap output;
+global SimpleDateFormat inSDF;
+global SimpleDateFormat outSDF;
+
+function void print(String txt) {
+   System.out.println(txt);
+}
+
+// Declare inside drl so we can manipulate objects naturally
+declare Participant
+  @role( fact )
+  id : String @key
+  dayofweek : String
+end
+
+// Declare inside drl so we can manipulate objects naturally
+declare Observation
+  @role( event )
+  @timestamp ( obsdate )
+  id : String @key
+  obsdate : Date @key
+  obsvalue : Integer
+end
+
+rule "ruleInsertObservation"
+  salience 2000
+  when
+    $input : JSONObject() from entry-point DEFAULT 
+  then
+    inSDF = new SimpleDateFormat("yyyy-M-d");
+    Date date = inSDF.parse( $input.get("obsdate").toString() );
+    Observation obs = new Observation($input.get("id").toString(), date);
+    obs.setObsvalue( Integer.parseInt($input.get("obsvalue").toString()) );
+    insert(obs);
+    print(drools.getRule().getName() + "->" + obs.getId() + "-" + obs.getObsdate() + "-" + obs.getObsvalue() );
+end
+
+rule "ruleInsertParticipant"
+  salience 1000
+  when
+    $input : JSONObject() from entry-point DEFAULT 
+    not Participant( id == $input.get("id") )
+  then
+    Date today = new Date();
+    String dayofweek = new SimpleDateFormat("EE").format(today);
+    Participant $participant = new Participant( $input.get("id").toString() );
+    $participant.setDayofweek(dayofweek);
+    insert( $participant );
+    print(drools.getRule().getName() + "->" + $participant.getId() );
+end
+
+rule "ruleBestExpectedCount"
+  salience -100
+  no-loop true
+  when
+//    $participant : Participant( dayofweek == "Tue" )
+    $participant : Participant()
+    $obsCountTotal : Number( intValue > 0) from accumulate(
+      Observation( $obsCount : obsvalue == 2, $participant.id == id ) over window:time( 14d ),
+      count( $obsCount ) )
+  then
+    Date today = new Date();
+    outSDF = new SimpleDateFormat("E dd MMM yyyy");
+    JSONObject joutput = new JSONObject();
+    joutput.put("id", $participant.getId());
+    joutput.put("rulename", drools.getRule().getName());
+    joutput.put("ruledate", today);
+    joutput.put("rulemsg", "Nudge says that you attained your best expected outcome " + $obsCountTotal + " times in the past 14 days.");
+		joutput.put("ruledata", "http://www.satimetry.com/msg.php");
+    Output $output = new Output(joutput.toString());
+    insert($output);
+   	print(drools.getRule().getName() + "->" + $participant.getId() + " - " + $participant.getDayofweek() );
+end
+
+rule "ruleDailySurveyReminder"
+  salience -300
+	when
+    $participant : Participant()
+	then
+    Date today = new Date();
+    outSDF = new SimpleDateFormat("E dd MMM yyyy");
+    JSONObject joutput = new JSONObject();
+    joutput.put("id", $participant.getId());
+    joutput.put("rulename", drools.getRule().getName());
+    joutput.put("ruledate", today);
+    joutput.put("rulemsg", "Nudge reminds you to complete your goal attainment self-report.");
+		joutput.put("ruledata", "http://www.satimetry.com/gasq.php?ruleid=44");
+    Output $output = new Output(joutput.toString());
+    insert($output);
+    print(drools.getRule().getName() + "->" + $participant.getId() );
+end
+
+         </textarea>
+         </br>
+			<input type="submit" id="create" value="Create"/>
+		</fieldset>
+   </form>
+       
+	<form name="createfact" id="createfact" action="rest/fact" method="post">
+   	  <fieldset>
+      	<legend>Fact Post Example</legend>
+      	Program ID:
+ 		<input type="text" name="programid" id="programid" required autofocus value=1 />
+ 		</br>
+ 		Group ID:
+        <input type="text" name="groupid" id="groupid" required value=1 />
+        </br>
+        Fact JSON:
+        <input type="text" name="factjson" id="factjson" style="width: 500px;" value="{id:stefano, obsdate:2014-02-22, obsvalue:2}" required/>
+        </br>
+		<input type="submit" id="create" value="Create"/>
+	  </fieldset>
+   </form>
+   
+	<form name="deletefact" id="deletefact" action="rest/fact/del" method="POST">
+   	<fieldset>
+      	<legend>Fact Delete Example</legend>
+      	Fact ID:
+ 			<input type="text" name="id" id="id" required autofocus value="1" />
+			</br>
+			<input type="submit" id="create" value="Delete"/>
+		</fieldset>
+   </form>
+                   
+
+</body>
+
+</html>

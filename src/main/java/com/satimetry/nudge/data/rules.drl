@@ -1,0 +1,97 @@
+import java.util.HashMap;
+import org.json.JSONObject;
+import java.util.Date; 
+import java.text.SimpleDateFormat; 
+import com.satimetry.nudge.Output;
+
+global java.util.HashMap output;
+global SimpleDateFormat inSDF;
+global SimpleDateFormat outSDF;
+
+function void print(String txt) {
+   System.out.println(txt);
+}
+
+// Declare inside drl so we can manipulate objects naturally
+declare Participant
+  @role( fact )
+  id : String @key
+  dayofweek : String
+end
+
+// Declare inside drl so we can manipulate objects naturally
+declare Observation
+  @role( event )
+  @timestamp ( obsdate )
+  id : String @key
+  obsdate : Date @key
+  obsvalue : Integer
+end
+
+rule "ruleInsertObservation"
+  salience 2000
+  when
+    $input : JSONObject() from entry-point DEFAULT 
+  then
+    inSDF = new SimpleDateFormat("yyyy-M-d");
+    Date date = inSDF.parse( $input.get("obsdate").toString() );
+    Observation obs = new Observation($input.get("id").toString(), date);
+    obs.setObsvalue( Integer.parseInt($input.get("obsvalue").toString()) );
+    insert(obs);
+    print(drools.getRule().getName() + "->" + obs.getId() + "-" + obs.getObsdate() + "-" + obs.getObsvalue() );
+end
+
+rule "ruleInsertParticipant"
+  salience 1000
+  when
+    $input : JSONObject() from entry-point DEFAULT 
+    not Participant( id == $input.get("id") )
+  then
+    Date today = new Date();
+    String dayofweek = new SimpleDateFormat("EE").format(today);
+    Participant $participant = new Participant( $input.get("id").toString() );
+    $participant.setDayofweek(dayofweek);
+    insert( $participant );
+    print(drools.getRule().getName() + "->" + $participant.getId() );
+end
+
+rule "ruleBestExpectedCount"
+  salience -100
+  no-loop true
+  when
+//    $participant : Participant( dayofweek == "Tue" )
+    $participant : Participant()
+    $obsCountTotal : Number( intValue > 0) from accumulate(
+      Observation( $obsCount : obsvalue == 2, $participant.id == id ) over window:time( 14d ),
+      count( $obsCount ) )
+  then
+    Date today = new Date();
+    outSDF = new SimpleDateFormat("E dd MMM yyyy");
+    JSONObject joutput = new JSONObject();
+    joutput.put("id", $participant.getId());
+    joutput.put("rulename", drools.getRule().getName());
+    joutput.put("ruledate", today);
+    joutput.put("rulemsg", "Nudge says that you attained your best expected outcome " + $obsCountTotal + " times in the past 14 days.");
+		joutput.put("ruledata", "http://www.satimetry.com/msg.php");
+    Output $output = new Output(joutput.toString());
+    insert($output);
+   	print(drools.getRule().getName() + "->" + $participant.getId() + " - " + $participant.getDayofweek() );
+end
+
+rule "ruleDailySurveyReminder"
+  salience -300
+	when
+    $participant : Participant()
+	then
+    Date today = new Date();
+    outSDF = new SimpleDateFormat("E dd MMM yyyy");
+    JSONObject joutput = new JSONObject();
+    joutput.put("id", $participant.getId());
+    joutput.put("rulename", drools.getRule().getName());
+    joutput.put("ruledate", today);
+    joutput.put("rulemsg", "Nudge reminds you to complete your goal attainment self-report.");
+		joutput.put("ruledata", "http://www.satimetry.com/gasq.php?ruleid=44");
+    Output $output = new Output(joutput.toString());
+    insert($output);
+    print(drools.getRule().getName() + "->" + $participant.getId() );
+end
