@@ -47,7 +47,7 @@ public class ProgramruleuserService {
 	/**
 	 * SLF4J Logger.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(RulefileService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProgramruleuserService.class);
 	
 	@Inject
 	private Validator validator;
