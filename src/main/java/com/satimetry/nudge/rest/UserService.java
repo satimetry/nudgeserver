@@ -47,7 +47,7 @@ public class UserService {
 	/**
 	 * SLF4J Logger.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(RuleService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 	
 	@Inject
 	private Validator validator;
