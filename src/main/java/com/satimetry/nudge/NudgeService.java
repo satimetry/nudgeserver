@@ -41,17 +41,25 @@ import org.kie.api.runtime.rule.*;
 import org.kie.api.time.SessionClock;
 import org.kie.internal.KnowledgeBaseFactory;
 import org.kie.api.runtime.rule.EntryPoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.drools.core.time.impl.*;
 
 import com.satimetry.nudge.data.FactRepository;
 import com.satimetry.nudge.data.RulefileRepository;
 import com.satimetry.nudge.model.Fact;
+import com.satimetry.nudge.rest.FactService;
 import com.satimetry.nudge.service.FactCRUDService;
 import com.satimetry.nudge.util.RandomString;
 import com.satimetry.nudge.model.Rulefile;
 
 public class NudgeService {
 
+	/**
+	 * SLF4J Logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(NudgeService.class);
+	
 	@Inject
 	private FactRepository factRepo;
 
@@ -144,7 +152,7 @@ public class NudgeService {
 
 		for (int i = 0; i < jsonInputArray.length(); i++ ) {
 			json = jsonInputArray.getJSONObject(i);
-			System.out.println("jsonInputs---->" + json);			
+			LOGGER.info("==>nudge/create jsonInputs=" + json);			
 			jsonInputList.add(json);
 		}
 
@@ -154,11 +162,11 @@ public class NudgeService {
 			InputStream finput = Thread.currentThread().getContextClassLoader().getResourceAsStream(rulesFile);
 			String rules = readFileAsString(finput);
 			
-//			System.out.println("rules--->" + rulesjson);
+//			LOGGER.info("==>nudge/create rules=" + rulesjson);
 //			String rules = rulesjson.get("stefano").toString();
-			System.out.print("+++++++++++++++++++++++++++++++++++++++++++");
-			System.out.print(rules);
-			System.out.print("+++++++++++++++++++++++++++++++++++++++++++");
+			LOGGER.info("==>nudge/create +++++++++++++++++++++++++++++++++++++++++++");
+			LOGGER.info("==>nudge/create rules=" + rules);
+			LOGGER.info("==>nudge/create +++++++++++++++++++++++++++++++++++++++++++");
 			
 			KieSession sfSession = createStreamSession(rules);
 			jsonOutputList = runStreamRules(sfSession, jsonInputList);
@@ -184,7 +192,8 @@ public class NudgeService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("rules--->" + rulesjson);
+		
+		LOGGER.info("==>nudge putRules=" + rulesjson);
 		JSONObject json = new JSONObject();
 		json.put(id, rulesjson.get(id));
 		return json.toString();
@@ -212,12 +221,11 @@ public class NudgeService {
 
 //		kfs.write("/tmp/Rules.drl", rules);
 //		kfs.write("src/main/resources/rules/Rules.drl", rules);
-		
-		System.out.println("rules----->" + rules);
+		LOGGER.info("==>nudge kie=" + rules);
 		
 		RandomString randomString = new RandomString(10);
 		String ruleFileName = randomString.nextString();
-		System.out.println("ruleFileName ------>" + ruleFileName);
+		LOGGER.info("==>nudge/kie ruleFileName=" + ruleFileName);
 		
 		kfs.write("src/main/resources/" + ruleFileName + ".drl", rules);
 //		kfs.write("src/main/resources/Rules.drl", rules);
@@ -240,7 +248,7 @@ public class NudgeService {
     	ksessionConfig.setOption( ClockTypeOption.get("realtime") );
     	KieSession sfSession = kbase.newKieSession(ksessionConfig, null);
     	
-        System.out.println("sfSession-->" + sfSession);
+    	LOGGER.info("==>nudge/kie sfSession=" + sfSession);
 
 //		sfSession.addEventListener( new DebugAgendaEventListener() );
 //		sfSession.addEventListener( new DebugRuleRuntimeEventListener() );
@@ -253,8 +261,8 @@ public class NudgeService {
 		java.util.List<JSONObject> jsonOutputList = new ArrayList<JSONObject>();
 		
         SessionClock clock = sfSession.getSessionClock();        
-        System.out.println("clockc-->" + clock.toString()  );
-        System.out.println("clocks-->" + sfSession.getSessionClock()  );
+        LOGGER.info("==>nudge/list clockc=" + clock.toString()  );
+        LOGGER.info("==>nudge/list clockc=" + sfSession.getSessionClock()  );
 
         EntryPoint entryPoint = (EntryPoint) sfSession.getEntryPoint( "DEFAULT" );
         

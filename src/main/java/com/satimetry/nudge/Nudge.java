@@ -9,6 +9,8 @@ import javax.ws.rs.QueryParam;
 
 import org.drools.core.reteoo.ObjectTypeNode.Id;
 import org.json.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.satimetry.nudge.data.FactRepository;
 import com.satimetry.nudge.data.RuleRepository;
@@ -33,6 +35,11 @@ import java.util.regex.Pattern;
 @Path("/nudge")
 public class Nudge {
 
+	/**
+	 * SLF4J Logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(Nudge.class);
+	
 	@Inject
 	private FactRepository factRepo;
 
@@ -52,7 +59,7 @@ public class Nudge {
 		@QueryParam("factname") String factname,
 		@QueryParam("rulename") String rulename) {						
 		rulename = rulename.replace("\"", "");
-		System.out.println("TNM-rulename--->" + rulename);				
+		LOGGER.info("==>nudge/get params=" + programid + ":" + groupid + ":" + ":" + factname + ":" + rulename);				
 		return nudgeService.doNudge(programid, groupid, factname, rulename);
 	}
 
@@ -110,6 +117,5 @@ public class Nudge {
 		reader.close();
 		return fileData.toString();
 	}	
-	
-	
+		
 }

@@ -122,6 +122,9 @@ public class FactService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Fact> listAllFacts() {
+
+		LOGGER.info("==>fact/get *");
+		
 		return repository.findAllOrderedByProgramid();
 	}
 
@@ -133,7 +136,7 @@ public class FactService {
 			@QueryParam("groupid") Integer groupid,
 			@QueryParam("factname") String factname) {
 
-		LOGGER.info("==>fact/system params=" + programid + ":" + groupid);
+		LOGGER.info("==>fact/system params=" + programid + ":" + groupid + ":" + factname);
 
 		return repository.findAllSystemFactsByProgramIdGroupidFactname(programid, groupid, factname);
 
@@ -157,6 +160,9 @@ public class FactService {
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Fact lookupFactByFactByid(@PathParam("id") Integer id) {
+		
+		LOGGER.info("==>fact/get params=" + id);
+
 		Fact Fact = repository.findByFactid(id);
 		if (Fact == null) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);

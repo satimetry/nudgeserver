@@ -42,7 +42,6 @@ public class FactRepository {
 
     public List<Fact> findAllSystemFactsByProgramIdGroupidFactname(Integer programid, Integer groupid, String factname) {
     	
-    	System.out.println("TNM-fact--->" + programid + "-" + groupid);
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Fact> criteria = cb.createQuery(Fact.class);
         Root<Fact> Fact = criteria.from(Fact.class);
@@ -62,7 +61,6 @@ public class FactRepository {
     
     public List<Fact> findAllUserFactsByProgramIdGroupidFactname(Integer programid, Integer groupid, String factname) {
     	
-    	System.out.println("TNM-fact--->" + programid + "-" + groupid);
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Fact> criteria = cb.createQuery(Fact.class);
         Root<Fact> Fact = criteria.from(Fact.class);
@@ -83,7 +81,6 @@ public class FactRepository {
     
     public List<Fact> findAllByProgramIdgroupidFacttype(Integer programid, Integer groupid, Integer facttype) {
     	
-    	System.out.println("TNM-fact--->" + programid + "-" + groupid + "-" + facttype);
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Fact> criteria = cb.createQuery(Fact.class);
         Root<Fact> Fact = criteria.from(Fact.class);
