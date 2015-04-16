@@ -132,7 +132,9 @@ public class FactService {
 			@QueryParam("programid") Integer programid,
 			@QueryParam("groupid") Integer groupid,
 			@QueryParam("factname") String factname) {
-		
+
+		LOGGER.info("==>fact/system params=" + programid + ":" + groupid);
+
 		return repository.findAllSystemFactsByProgramIdGroupidFactname(programid, groupid, factname);
 
 	}
@@ -144,7 +146,9 @@ public class FactService {
 		@QueryParam("programid") Integer programid,
 		@QueryParam("groupid") Integer groupid,
 		@QueryParam("factname") String factname) {
-		
+
+		LOGGER.info("==>fact/user params=" + programid + ":" + groupid + ":" + factname);
+
 		return repository.findAllUserFactsByProgramIdGroupidFactname(programid, groupid, factname);
 
 	}
